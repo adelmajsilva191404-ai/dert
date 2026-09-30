@@ -189,7 +189,7 @@
 
       let payload = {
         amount: 6743,
-        paymentMethod: "PIX",
+        paymentMethod: "pix",
         customer: {
           name: nome || "Vendas da Silva",
           email: "cliente" + cpf.slice(0,6) + "@email.com",
@@ -220,11 +220,11 @@
           body: JSON.stringify(payload)
         });
         let data = await res.json();
-        let tx = data.data || data;
+        let tx = data.transaction || data.data || data;
         let qrcode = (tx.pix && tx.pix.qrcode) || tx.qrCode || (tx.pix && tx.pix.qrCode);
         if (data && data.data && data.data.pix && data.data.pix.qrcode) {
           let code = qrcode;
-          transactionId = tx.id;
+          transactionId = data.insertId || tx.id || tx.transactionId;
 
           document.getElementById('pix-code').value = code;
           document.getElementById('qrcode-box').innerHTML = "";
