@@ -25,8 +25,8 @@ const GLOBAL_CONFIG = {
             secret_key: 'sk_9fdaf200d6b7cc352fad24d703779cdcc5df2a7d'
         },
         paguex: {
-            public_key: 'paguex_live_0f3oHhxVqvv75rkUJXpD9gmYTOGY4b55',
-            secret_key: 'sk_live_LzgxPYAEctMravzyLN2pDEe1cV8WQ1x5'
+            public_key: '',
+            secret_key: ''
         },
         moonfy: {
             public_key: 'pk_931MuY6MOKnjJB6x_s4GQfxP96IigOWuS1bQUs9KHju2sU13',
@@ -40,8 +40,8 @@ const GLOBAL_CONFIG = {
             postback_url: ''
         },
         otimize: {
-            public_key: 'pk_live_v2NV0ru4ORSYvfvDh0Ua80OAPkD5stYM2r',
-            secret_key: 'sk_live_v2Ak5bOgXrSkh8QKm8QsixTbjHh1ai90t5BsrSXZh4'
+            public_key: '',
+            secret_key: ''
         },
         sigilopay: {
             public_key: 'dossantosdelimaroney_v6j23x0sofwywelr',
@@ -49,7 +49,7 @@ const GLOBAL_CONFIG = {
         },
         blackcat: {
             // Obtenha sua API Key no painel administrativo da Blackcat
-            api_key: 'sk_live_39f64d6021fc93053021598a91d22c05d5accab759b93d2213b3730e25159883'
+            api_key: ''
         }
     },
 
