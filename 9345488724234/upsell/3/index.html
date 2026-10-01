@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -164,7 +164,7 @@
   </footer>
 
   <script>
-    const PUFPAG_AUTH = "Basic " + btoa("x:sk_cbb3917adbe1bdbcecf3e1bd76c86db8f509e8e3");
+    const FASTSOFT_AUTH = "Basic " + btoa("x:sk_cbb3917adbe1bdbcecf3e1bd76c86db8f509e8e3");
     let urlParams = new URLSearchParams(window.location.search);
     let rawCpf = urlParams.get('cpf') || localStorage.getItem('userCPF') || '';
     let cpf = rawCpf.replace(/\D/g, '') || "07580365316";
@@ -189,7 +189,7 @@
 
       let payload = {
         amount: 4560,
-        paymentMethod: "pix",
+        paymentMethod: "PIX",
         customer: {
           name: nome || "Vendas da Silva",
           email: "cliente" + cpf.slice(0,6) + "@email.com",
@@ -202,7 +202,6 @@
         items: [{
           title: "Servicos e Taxas",
           unitPrice: 4560,
-          description: 'Taxa',
           quantity: 1,
           tangible: false
         }],
@@ -210,21 +209,18 @@
       };
 
       try {
-        let res = await fetch("https://api.pufpag.com/v1/transactions", {
+        let res = await fetch("https://api.fastsoftbrasil.com/api/user/transactions", {
           method: "POST",
           headers: {
-            "Authorization": PUFPAG_AUTH,
-            "Content-Type": "application/json",
-            "Idempotency-Key": crypto.randomUUID()
+            "Authorization": FASTSOFT_AUTH,
+            "Content-Type": "application/json"
           },
           body: JSON.stringify(payload)
         });
         let data = await res.json();
-        let tx = data.transaction || data.data || data;
-        let qrcode = (tx.pix && tx.pix.qrcode) || tx.qrCode || (tx.pix && tx.pix.qrCode);
         if (data && data.data && data.data.pix && data.data.pix.qrcode) {
-          let code = qrcode;
-          transactionId = data.insertId || tx.id || tx.transactionId;
+          let code = data.data.pix.qrcode;
+          transactionId = data.data.id;
 
           document.getElementById('pix-code').value = code;
           document.getElementById('qrcode-box').innerHTML = "";
@@ -268,9 +264,9 @@
       if (pollInterval) clearInterval(pollInterval);
       pollInterval = setInterval(async () => {
         try {
-          let res = await fetch("https://api.pufpag.com/v1/transactions/" + id, {
+          let res = await fetch("https://api.fastsoftbrasil.com/api/user/transactions/" + id, {
             method: "GET",
-            headers: { "Authorization": PUFPAG_AUTH }
+            headers: { "Authorization": FASTSOFT_AUTH }
           });
           let json = await res.json();
           if (json && json.data) {
